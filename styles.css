@@ -260,7 +260,7 @@ header {
   padding: 0 24px;
   position: relative;
   overflow: hidden;
-  height: 96px;
+  height: 90px; /* Adjusted compact row height 82-92px */
 }
 .arrival-card::before {
   content: '';
@@ -272,15 +272,24 @@ header {
   background-color: var(--card-color, var(--muted-gray));
 }
 .arrival-card.active {
-  background: linear-gradient(90deg, rgba(0, 183, 255, 0.1) 0%, var(--night-blue) 100%);
+  background: #0C263B;
+  border-left: 6px solid var(--card-color);
   border-color: rgba(0, 183, 255, 0.3);
-  height: 140px;
+  height: 160px;
+  grid-template-columns: 15% 55% 30%;
+  padding: 24px 30px;
+  gap: 24px;
+  align-items: flex-start;
+  margin-bottom: 14px; /* Space between first card and others */
+}
+.arrival-card.active::before {
+  display: none; /* Handle border with border-left */
 }
 .arrival-card.active::after {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  box-shadow: inset 0 0 20px rgba(0, 183, 255, 0.1);
+  box-shadow: 0 0 20px rgba(0, 183, 255, 0.2); /* Outer glow, not inner shadow */
   pointer-events: none;
   animation: pulse-active-card 4s infinite;
 }
@@ -292,18 +301,22 @@ header {
   gap: 6px;
 }
 .route-badge {
-  display: inline-block;
-  padding: 4px 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  height: 28px;
   background: var(--card-color, var(--muted-gray));
   color: #fff;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 14px;
   border-radius: 4px;
   text-transform: uppercase;
   width: max-content;
 }
 .active .route-badge {
   font-size: 18px;
+  height: 32px;
 }
 .mode-icon {
   display: flex;
@@ -325,22 +338,31 @@ header {
   font-size: 32px;
   line-height: 1.1;
   text-transform: uppercase;
+  color: var(--white);
 }
 .active .destination {
-  font-size: 40px;
+  font-size: 46px;
+  font-weight: 700;
 }
 .route-info {
   font-size: 16px;
   color: var(--muted-gray);
 }
+.active .route-info {
+  font-size: 18px;
+  margin-bottom: 4px;
+}
 .tag {
   display: inline-block;
-  padding: 3px 8px;
+  padding: 4px 8px;
   background: var(--panel-glass);
   border-radius: 4px;
   font-size: 14px;
   color: var(--white);
   width: max-content;
+}
+.active .tag {
+  font-size: 14px;
 }
 
 .card-right {
@@ -349,6 +371,13 @@ header {
   align-items: flex-end;
   gap: 4px;
   text-align: right;
+  justify-content: center;
+  height: 100%;
+}
+.active .card-right {
+  align-items: center;
+  text-align: center;
+  gap: 4px;
 }
 .arrives-in {
   display: flex;
@@ -361,35 +390,60 @@ header {
   text-transform: uppercase;
   letter-spacing: 1px;
 }
+.active .arrives-label {
+  font-size: 16px;
+}
+.time-val-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+}
 .time-val {
   font-family: 'Roboto Mono', monospace;
-  font-size: 48px;
+  font-size: 40px;
   font-weight: 700;
   color: var(--white);
   line-height: 1;
 }
+.active .time-val-container {
+  margin: 2px 0 6px 0;
+}
 .active .time-val {
-  font-size: 64px;
+  font-size: 72px;
   color: var(--signal-cyan);
   text-shadow: 0 0 15px rgba(0, 183, 255, 0.4);
+}
+.active .min-label {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--signal-cyan);
+  line-height: 0.8;
+  display: none; /* Hide if we put it on one line as preferred */
 }
 .platform {
   font-size: 20px;
   font-weight: 700;
 }
 .active .platform {
-  font-size: 24px;
+  font-size: 26px;
+  margin-bottom: 2px;
 }
 .status-chip {
-  padding: 4px 10px;
+  padding: 0 10px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 4px;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 14px;
   text-transform: uppercase;
-  margin-top: 2px;
 }
 .active .status-chip {
   font-size: 18px;
+  height: 32px;
 }
 .status-chip.delayed { background: rgba(229, 57, 53, 0.2); color: var(--delay-red); border: 1px solid var(--delay-red); }
 .status-chip.on-time { background: rgba(0, 200, 83, 0.2); color: var(--route-green); border: 1px solid var(--route-green); }

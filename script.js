@@ -102,9 +102,9 @@ function renderArrivals() {
           <div class="tag">${arr.tag}</div>
         </div>
         <div class="card-right">
-          <div class="arrives-in">
-            <div class="arrives-label">Arrives In</div>
-            <div class="time-val">${arr.arrivesIn} <span style="font-size: 42px;">MIN</span></div>
+          <div class="arrives-label">ARRIVES IN</div>
+          <div class="time-val-container">
+            <div class="time-val">${arr.arrivesIn} MIN</div>
           </div>
           <div class="platform">${arr.platform}</div>
           <div class="status-chip ${getStatusClass(arr.status)}">${arr.status}</div>
@@ -116,15 +116,15 @@ function renderArrivals() {
           <div class="route-badge">${arr.route}</div>
         </div>
         <div class="card-center">
-          <div class="destination">${arr.destination}</div>
+          <div class="destination" style="font-size: 32px;">${arr.destination}</div>
         </div>
         <div class="card-right" style="flex-direction: row; justify-content: flex-end; align-items: center; gap: 20px;">
           <div class="arrives-in" style="flex-direction: row; align-items: baseline; gap: 8px;">
             <div class="time-val" style="font-size: 40px;">${arr.arrivesIn}</div>
             <div style="font-size: 30px; font-weight: 700;">MIN</div>
           </div>
-          <div style="display: flex; flex-direction: column; align-items: flex-end; width: 100px;">
-            <div class="platform" style="font-size: 18px;">${arr.platform}</div>
+          <div style="display: flex; flex-direction: column; align-items: flex-end; width: 100px; gap: 4px;">
+            <div class="platform" style="font-size: 20px;">${arr.platform}</div>
             <div class="status-chip ${getStatusClass(arr.status)}" style="font-size: 14px;">${arr.status}</div>
           </div>
         </div>
