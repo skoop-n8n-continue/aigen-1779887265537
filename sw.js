@@ -1,14 +1,14 @@
-"use strict";
+'use strict';
 
-const CACHE_NAME = "skoop-app-aigen-1779887265537";
+const CACHE_NAME = 'skoop-app-aigen-1779887265537';
 
 const NETWORK_ONLY_HOSTS = [
-  "timeapi.io",
-  "worldtimeapi.org",
-  "api.openweathermap.org",
-  "openweathermap.org",
-  "api.weatherapi.com",
-  "wttr.in",
+  'timeapi.io',
+  'worldtimeapi.org',
+  'api.openweathermap.org',
+  'openweathermap.org',
+  'api.weatherapi.com',
+  'wttr.in',
 ];
 
 // ---------------------------------------------------------------------------
@@ -30,7 +30,7 @@ function startRefreshWindow() {
 function isNetworkOnly(url) {
   try {
     const host = new URL(url).hostname;
-    return NETWORK_ONLY_HOSTS.some((h) => host.includes(h));
+    return NETWORK_ONLY_HOSTS.some(h => host.includes(h));
   } catch (_) {
     return false;
   }
@@ -39,7 +39,7 @@ function isNetworkOnly(url) {
 function isIndexHtml(url) {
   try {
     const u = new URL(url);
-    return u.pathname === "/" || u.pathname.endsWith("/index.html");
+    return u.pathname === '/' || u.pathname.endsWith('/index.html');
   } catch (_) {
     return false;
   }
@@ -47,7 +47,7 @@ function isIndexHtml(url) {
 
 function hasRefreshParam(url) {
   try {
-    return new URL(url).searchParams.get("refresh") === "true";
+    return new URL(url).searchParams.get('refresh') === 'true';
   } catch (_) {
     return false;
   }
@@ -56,9 +56,9 @@ function hasRefreshParam(url) {
 function normalizeUrl(url) {
   try {
     const u = new URL(url);
-    u.searchParams.delete("refresh");
-    u.searchParams.delete("ts");
-    u.searchParams.delete("_cb");
+    u.searchParams.delete('refresh');
+    u.searchParams.delete('ts');
+    u.searchParams.delete('_cb');
     return u.toString();
   } catch (_) {
     return url;
@@ -68,12 +68,9 @@ function normalizeUrl(url) {
 // ---------------------------------------------------------------------------
 // Install — pre-cache index.html only. All other assets are cached on first fetch.
 // ---------------------------------------------------------------------------
-self.addEventListener("install", (event) => {
+self.addEventListener('install', event => {
   event.waitUntil(
-    caches
-      .open(CACHE_NAME)
-      .then((cache) => cache.add("./index.html"))
-      .catch(() => {}),
+    caches.open(CACHE_NAME).then(cache => cache.add('./index.html')).catch(() => {})
   );
   self.skipWaiting();
 });
@@ -81,17 +78,15 @@ self.addEventListener("install", (event) => {
 // ---------------------------------------------------------------------------
 // Activate — delete any caches from previous deployments of this app.
 // ---------------------------------------------------------------------------
-self.addEventListener("activate", (event) => {
+self.addEventListener('activate', event => {
   event.waitUntil(
-    caches
-      .keys()
-      .then((keys) =>
-        Promise.all(
-          keys
-            .filter((key) => key.startsWith("skoop-app-") && key !== CACHE_NAME)
-            .map((key) => caches.delete(key)),
-        ),
-      ),
+    caches.keys().then(keys =>
+      Promise.all(
+        keys
+          .filter(key => key.startsWith('skoop-app-') && key !== CACHE_NAME)
+          .map(key => caches.delete(key))
+      )
+    )
   );
   self.clients.claim();
 });
@@ -106,10 +101,10 @@ self.addEventListener("activate", (event) => {
 //   4. index.html                  — network-first (picks up new deployments)
 //   5. Everything else             — cache-first, fallback to network then cache
 // ---------------------------------------------------------------------------
-self.addEventListener("fetch", (event) => {
+self.addEventListener('fetch', event => {
   const { request } = event;
 
-  if (request.method !== "GET") return;
+  if (request.method !== 'GET') return;
 
   const url = request.url;
 
@@ -128,19 +123,19 @@ self.addEventListener("fetch", (event) => {
 
     const normalized = normalizeUrl(url);
     event.respondWith(
-      caches.open(CACHE_NAME).then(async (cache) => {
+      caches.open(CACHE_NAME).then(async cache => {
         await cache.delete(normalized);
         try {
           // cache: 'no-store' bypasses the browser's HTTP cache so we
           // actually hit the server, not a stale HTTP-cached S3 response
-          const fresh = await fetch(normalized, { cache: "no-store" });
+          const fresh = await fetch(normalized, { cache: 'no-store' });
           if (fresh.ok) await cache.put(normalized, fresh.clone());
           return fresh;
         } catch (_) {
           const cached = await cache.match(normalized);
-          return cached || new Response("Offline", { status: 503 });
+          return cached || new Response('Offline', { status: 503 });
         }
-      }),
+      })
     );
     return;
   }
@@ -149,12 +144,12 @@ self.addEventListener("fetch", (event) => {
   if (isIndexHtml(url)) {
     event.respondWith(
       fetch(request)
-        .then((response) => {
+        .then(response => {
           const clone = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
+          caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
           return response;
         })
-        .catch(() => caches.match(request)),
+        .catch(() => caches.match(request))
     );
     return;
   }
@@ -162,7 +157,7 @@ self.addEventListener("fetch", (event) => {
   // 4. All other assets — cache-first
   const normalizedUrl = normalizeUrl(url);
   event.respondWith(
-    caches.open(CACHE_NAME).then(async (cache) => {
+    caches.open(CACHE_NAME).then(async cache => {
       const cached = await cache.match(normalizedUrl);
       if (cached) return cached;
       try {
@@ -170,8 +165,8 @@ self.addEventListener("fetch", (event) => {
         if (response.ok) await cache.put(normalizedUrl, response.clone());
         return response;
       } catch (_) {
-        return new Response("Offline", { status: 503 });
+        return new Response('Offline', { status: 503 });
       }
-    }),
+    })
   );
 });
