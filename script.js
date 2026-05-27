@@ -6,7 +6,7 @@ const arrivals = [
     arrivesIn: 2,
     platform: 'Track 1',
     status: 'Delayed',
-    routeInfo: 'Stops at Civic Center, Market Street, Downtown Central',
+    routeInfo: 'Stops: Civic Center · Market Street',
     tag: 'Heavy Rider Volume',
     color: 'var(--route-blue)'
   },
@@ -17,8 +17,8 @@ const arrivals = [
     arrivesIn: 5,
     platform: 'Track 2',
     status: 'On Time',
-    routeInfo: 'Stops at Museum District, University, North Park',
-    tag: 'Best Transfer Option',
+    routeInfo: 'Stops: Museum District · University',
+    tag: 'Best Transfer',
     color: 'var(--route-green)'
   },
   {
@@ -28,8 +28,8 @@ const arrivals = [
     arrivesIn: 7,
     platform: 'Bay B',
     status: 'On Time',
-    routeInfo: 'Serves Hospital, East Market, East Terminal',
-    tag: 'Blue Line Alternative',
+    routeInfo: 'Serves: Hospital · East Market',
+    tag: 'Blue Line Alt',
     color: 'var(--route-amber)'
   },
   {
@@ -39,8 +39,8 @@ const arrivals = [
     arrivesIn: 11,
     platform: 'Bay D',
     status: 'Boarding Soon',
-    routeInfo: 'Limited stops to Airport Connector',
-    tag: 'Fastest Airport Route',
+    routeInfo: 'Limited stops to Airport',
+    tag: 'Fastest Route',
     color: 'var(--express-orange)'
   },
   {
@@ -50,7 +50,7 @@ const arrivals = [
     arrivesIn: 14,
     platform: 'Track 4',
     status: 'On Time',
-    routeInfo: 'Stops at Grand Avenue, Midtown, South Station',
+    routeInfo: 'Stops: Grand Avenue · Midtown',
     tag: 'Standard Service',
     color: 'var(--delay-red)'
   },
@@ -61,7 +61,7 @@ const arrivals = [
     arrivesIn: 18,
     platform: 'Bay A',
     status: 'Minor Delay',
-    routeInfo: 'Serves Library, West Market, West Village',
+    routeInfo: 'Serves: Library · West Market',
     tag: 'Local Route',
     color: 'var(--route-purple)'
   }
@@ -89,26 +89,47 @@ function renderArrivals() {
     const card = document.createElement('div');
     card.className = `arrival-card ${isActive ? 'active' : ''}`;
     card.style.setProperty('--card-color', arr.color);
-    
-    card.innerHTML = `
-      <div class="card-left">
-        <div class="route-badge">${arr.route}</div>
-        <div class="mode-icon">${getModeIcon(arr.mode)} ${arr.mode}</div>
-      </div>
-      <div class="card-center">
-        <div class="destination">${arr.destination}</div>
-        <div class="route-info">${arr.routeInfo}</div>
-        <div class="tag">${arr.tag}</div>
-      </div>
-      <div class="card-right">
-        <div class="arrives-in">
-          <div class="arrives-label">Arrives In</div>
-          <div class="time-val">${arr.arrivesIn} MIN</div>
+
+    if (isActive) {
+      card.innerHTML = `
+        <div class="card-left">
+          <div class="route-badge">${arr.route}</div>
+          <div class="mode-icon">${getModeIcon(arr.mode)} ${arr.mode}</div>
         </div>
-        <div class="platform">${arr.platform}</div>
-        <div class="status-chip ${getStatusClass(arr.status)}">${arr.status}</div>
-      </div>
-    `;
+        <div class="card-center">
+          <div class="destination">${arr.destination}</div>
+          <div class="route-info">${arr.routeInfo}</div>
+          <div class="tag">${arr.tag}</div>
+        </div>
+        <div class="card-right">
+          <div class="arrives-in">
+            <div class="arrives-label">Arrives In</div>
+            <div class="time-val">${arr.arrivesIn} <span style="font-size: 42px;">MIN</span></div>
+          </div>
+          <div class="platform">${arr.platform}</div>
+          <div class="status-chip ${getStatusClass(arr.status)}">${arr.status}</div>
+        </div>
+      `;
+    } else {
+      card.innerHTML = `
+        <div class="card-left">
+          <div class="route-badge">${arr.route}</div>
+        </div>
+        <div class="card-center">
+          <div class="destination">${arr.destination}</div>
+        </div>
+        <div class="card-right" style="flex-direction: row; justify-content: flex-end; align-items: center; gap: 20px;">
+          <div class="arrives-in" style="flex-direction: row; align-items: baseline; gap: 8px;">
+            <div class="time-val" style="font-size: 40px;">${arr.arrivesIn}</div>
+            <div style="font-size: 30px; font-weight: 700;">MIN</div>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: flex-end; width: 100px;">
+            <div class="platform" style="font-size: 18px;">${arr.platform}</div>
+            <div class="status-chip ${getStatusClass(arr.status)}" style="font-size: 14px;">${arr.status}</div>
+          </div>
+        </div>
+      `;
+    }
     container.appendChild(card);
   });
 }
