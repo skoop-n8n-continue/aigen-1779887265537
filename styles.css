@@ -286,8 +286,8 @@ header {
   background: #0c263b;
   border-left: 6px solid var(--card-color);
   border-color: rgba(0, 183, 255, 0.3);
-  height: 160px;
-  grid-template-columns: 15% 55% 30%;
+  height: 200px;
+  grid-template-columns: 20% 50% 30%;
   padding: 24px 30px;
   gap: 24px;
   align-items: flex-start;
