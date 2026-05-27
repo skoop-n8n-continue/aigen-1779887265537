@@ -69,7 +69,7 @@ body {
 
 /* Top Zone (Header + Alert) */
 .top-zone {
-  height: 210px;
+  height: 234px;
   position: relative;
   z-index: 10;
   display: flex;
@@ -182,7 +182,7 @@ header {
 
 /* Alert Banner */
 .alert-banner {
-  height: 56px;
+  height: 80px;
   background: linear-gradient(
     90deg,
     rgba(229, 57, 53, 0.15) 0%,
@@ -249,7 +249,7 @@ header {
   display: flex;
   padding: 0 48px;
   gap: 32px;
-  height: 760px; /* 210px (top) + 760px (main) + 110px (bottom) = 1080px */
+  height: 736px; /* 234px (top) + 736px (main) + 110px (bottom) = 1080px */
 }
 
 /* Left Zone: Arrivals Board */
