@@ -255,7 +255,7 @@ header {
   border: 1px solid var(--panel-border);
   border-radius: 8px;
   display: grid;
-  grid-template-columns: 140px 1fr 180px;
+  grid-template-columns: 140px 1fr 220px;
   align-items: center;
   padding: 0 24px;
   position: relative;
@@ -289,7 +289,7 @@ header {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  box-shadow: 0 0 20px rgba(0, 183, 255, 0.2); /* Outer glow, not inner shadow */
+  box-shadow: 0 0 20px rgba(0, 183, 255, 0.4); /* Outer glow, not inner shadow */
   pointer-events: none;
   animation: pulse-active-card 4s infinite;
 }
@@ -299,6 +299,8 @@ header {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  height: 100%;
+  justify-content: flex-start;
 }
 .route-badge {
   display: inline-flex;
@@ -327,11 +329,19 @@ header {
   font-weight: 500;
 }
 .mode-icon svg { width: 16px; height: 16px; fill: currentColor; }
+.active .mode-icon {
+  margin-top: auto; /* Push to bottom of left column */
+}
 
 .card-center {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  height: 100%;
+  justify-content: center;
+}
+.active .card-center {
+  justify-content: flex-start;
 }
 .destination {
   font-family: 'Oswald', sans-serif;
@@ -378,6 +388,28 @@ header {
   align-items: center;
   text-align: center;
   gap: 4px;
+  justify-content: flex-start;
+}
+.card-right-compact {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 20px;
+  height: 100%;
+}
+.time-val-compact {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1;
+}
+.status-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  min-width: 90px;
 }
 .arrives-in {
   display: flex;
@@ -407,12 +439,12 @@ header {
   line-height: 1;
 }
 .active .time-val-container {
-  margin: 2px 0 6px 0;
+  margin: 2px 0 8px 0;
 }
 .active .time-val {
   font-size: 72px;
   color: var(--signal-cyan);
-  text-shadow: 0 0 15px rgba(0, 183, 255, 0.4);
+  text-shadow: none; /* Removed inner text shadow */
 }
 .active .min-label {
   font-family: 'Roboto Mono', monospace;
