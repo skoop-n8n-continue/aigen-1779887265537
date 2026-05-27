@@ -88,7 +88,7 @@ header {
 .header-left {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
 }
 
 .live-badge {
@@ -158,7 +158,7 @@ header {
 .time-container {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
 }
 .current-time {
   font-family: "Roboto Mono", monospace;
@@ -314,12 +314,14 @@ header {
   flex-direction: column;
   gap: 6px;
   height: 100%;
-  justify-content: flex-start;
+  justify-content: center;
+  align-items: center;
 }
 .route-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  align-items: center;
   padding: 0 10px;
   height: 28px;
   background: var(--card-color, var(--muted-gray));
@@ -354,12 +356,14 @@ header {
 .card-center {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
   height: 100%;
   justify-content: center;
+  align-items: center;
 }
 .active .card-center {
-  justify-content: flex-start;
+  justify-content: center;
+  align-items: center;
 }
 .destination {
   font-family: "Oswald", sans-serif;
@@ -396,22 +400,25 @@ header {
 .card-right {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  gap: 4px;
+  align-items: center;
+  gap: 2px;
   text-align: right;
   justify-content: center;
+  align-items: center;
   height: 100%;
 }
 .active .card-right {
   align-items: center;
   text-align: center;
-  gap: 4px;
-  justify-content: flex-start;
+  gap: 2px;
+  justify-content: center;
+  align-items: center;
 }
 .card-right-compact {
   display: flex;
   align-items: center;
   justify-content: center;
+  align-items: center;
   gap: 20px;
   height: 100%;
 }
@@ -426,14 +433,14 @@ header {
 .status-group {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  gap: 4px;
+  align-items: center;
+  gap: 2px;
   min-width: 90px;
 }
 .arrives-in {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
 }
 .arrives-label {
   font-size: 14px;
@@ -458,7 +465,7 @@ header {
   line-height: 1;
 }
 .active .time-val-container {
-  margin: 2px 0 8px 0;
+  margin: 2px 0 2px 0;
 }
 .active .time-val {
   font-size: 72px;
@@ -480,6 +487,7 @@ header {
 .active .platform {
   font-size: 26px;
   margin-bottom: 2px;
+  line-height: 1;
 }
 .status-chip {
   padding: 0 8px;
@@ -487,6 +495,7 @@ header {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  align-items: center;
   border-radius: 4px;
   font-weight: 600;
   font-size: 13px;
@@ -721,7 +730,7 @@ header {
   bottom: 0;
   left: 0;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
 }
 
 /* Footer Ticker */
